@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dss;
+package Frame;
 
+import Java.Apartamento;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -15,11 +18,18 @@ import javax.swing.JFileChooser;
  */
 public class Perfil extends javax.swing.JFrame {
 
+    private Apartamento apartamento;
     /**
      * Creates new form Perfil
      */
-    public Perfil() {
+    public Perfil(Apartamento a) {
         initComponents();
+        this.apartamento = a;
+    }
+    
+    public void close() {
+        WindowEvent winClosingEvent =  new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     }
 
     /**
@@ -32,6 +42,7 @@ public class Perfil extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextFieldPath = new javax.swing.JTextField();
+        jLabelHome = new javax.swing.JLabel();
         jLabelShopIcon = new javax.swing.JLabel();
         jLabelPagar1 = new javax.swing.JLabel();
         jLabelMail1 = new javax.swing.JLabel();
@@ -47,6 +58,27 @@ public class Perfil extends javax.swing.JFrame {
         getContentPane().setLayout(null);
         getContentPane().add(jTextFieldPath);
         jTextFieldPath.setBounds(40, 450, 210, 40);
+
+        jLabelHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"))); // NOI18N
+        jLabelHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelHomeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelHomeMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabelHomeMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabelHomeMouseReleased(evt);
+            }
+        });
+        getContentPane().add(jLabelHome);
+        jLabelHome.setBounds(680, 460, 80, 80);
 
         jLabelShopIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shopping-cart.png"))); // NOI18N
         getContentPane().add(jLabelShopIcon);
@@ -153,45 +185,37 @@ public class Perfil extends javax.swing.JFrame {
         jLabelImagem.setIcon(icon);
     }//GEN-LAST:event_jLabelAbrirMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jLabelHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonHome_over.png"));
+        jLabelHome.setIcon(II);
+    }//GEN-LAST:event_jLabelHomeMouseEntered
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Perfil().setVisible(true);
-            }
-        });
-    }
+    private void jLabelHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"));
+        jLabelHome.setIcon(II);
+    }//GEN-LAST:event_jLabelHomeMouseExited
+
+    private void jLabelHomeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonHome_pressed.png"));
+        jLabelHome.setIcon(II);
+    }//GEN-LAST:event_jLabelHomeMousePressed
+
+    private void jLabelHomeMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonHome_over.png"));
+        jLabelHome.setIcon(II);
+    }//GEN-LAST:event_jLabelHomeMouseReleased
+
+    private void jLabelHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseClicked
+        close();
+        Menu_Inicial s = new Menu_Inicial(apartamento);
+        s.setVisible(true);
+    }//GEN-LAST:event_jLabelHomeMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelAbrir;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelEntrada1;
+    private javax.swing.JLabel jLabelHome;
     private javax.swing.JLabel jLabelImagem;
     private javax.swing.JLabel jLabelMail1;
     private javax.swing.JLabel jLabelNome1;

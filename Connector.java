@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dss;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
 
 /**
  *
@@ -20,7 +18,7 @@ import java.util.Date;
 public class Connector {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "Master22Piece";
-    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/dividas";
+    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/dividas?useSSL=false";
     
     public static Connection connectDB() {
         Connection conn = null;
@@ -34,5 +32,15 @@ public class Connector {
             System.out.println(e);
         }   
         return conn;
+    }
+    
+    public static void close(Connection c) {
+        try {
+            if(c!=null && !c.isClosed()) {
+                c.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

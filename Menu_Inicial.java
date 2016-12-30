@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dss;
+package Frame;
 
+import Java.Apartamento;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -17,12 +18,15 @@ import javax.swing.ImageIcon;
  * @author Houdini
  */
 public class Menu_Inicial extends javax.swing.JFrame {
+    
+    private Apartamento apartamento;
 
     /**
      * Creates new form Menu_Inicial
      */
-    public Menu_Inicial() {
+    public Menu_Inicial(Apartamento a) {
         initComponents();
+        this.apartamento = a;
     }
     
     public void close() {
@@ -53,6 +57,9 @@ public class Menu_Inicial extends javax.swing.JFrame {
         jLabelDespesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonDespesas.png"))); // NOI18N
         jLabelDespesas.setText("jLabel3");
         jLabelDespesas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelDespesasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelDespesasMouseEntered(evt);
             }
@@ -91,6 +98,9 @@ public class Menu_Inicial extends javax.swing.JFrame {
         jLabelPerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonPerfil.png"))); // NOI18N
         jLabelPerfil.setText("jLabel1");
         jLabelPerfil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelPerfilMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelPerfilMouseEntered(evt);
             }
@@ -164,9 +174,9 @@ public class Menu_Inicial extends javax.swing.JFrame {
 
     private void jLabelButtonVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonVoltarMouseClicked
         close();
-        Morador s = null;
+        Escolhe_Morador s = null;
         try {
-            s = new Morador();
+            s = new Escolhe_Morador(apartamento);
         } catch (SQLException ex) {
             Logger.getLogger(Menu_Inicial.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -233,34 +243,18 @@ public class Menu_Inicial extends javax.swing.JFrame {
         jLabelDespesas.setIcon(II);
     }//GEN-LAST:event_jLabelDespesasMouseReleased
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu_Inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
+    private void jLabelDespesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDespesasMouseClicked
+        close();
+        Despesas s = new Despesas(apartamento);
+        s.setVisible(true);
+    }//GEN-LAST:event_jLabelDespesasMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Menu_Inicial().setVisible(true);
-        });
-    }
+    private void jLabelPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPerfilMouseClicked
+        close();
+        Perfil s = new Perfil(apartamento);
+        s.setVisible(true);
+    }//GEN-LAST:event_jLabelPerfilMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelApartamento;

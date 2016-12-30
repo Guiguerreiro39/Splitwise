@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dss;
+package Frame;
 
+import Java.Apartamento;
+import Java.Morador;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -18,11 +22,13 @@ import javax.swing.ImageIcon;
  */
 public class CriarMorador extends javax.swing.JFrame {
 
+    private Apartamento apartamento;
     /**
      * Creates new form CriarMorador
      */
-    public CriarMorador() {
+    public CriarMorador(Apartamento a) {
         initComponents();
+        this.apartamento = a;
     }
     
     public void close() {
@@ -61,20 +67,20 @@ public class CriarMorador extends javax.swing.JFrame {
         jSpinnerSaida.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         jSpinnerSaida.setModel(new javax.swing.SpinnerDateModel());
         getContentPane().add(jSpinnerSaida);
-        jSpinnerSaida.setBounds(260, 400, 160, 30);
+        jSpinnerSaida.setBounds(300, 400, 160, 30);
 
         jSpinnerEntrada.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
         jSpinnerEntrada.setModel(new javax.swing.SpinnerDateModel());
         getContentPane().add(jSpinnerEntrada);
-        jSpinnerEntrada.setBounds(260, 340, 160, 30);
+        jSpinnerEntrada.setBounds(300, 340, 160, 30);
 
         jTextFieldNome.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         getContentPane().add(jTextFieldNome);
-        jTextFieldNome.setBounds(260, 220, 190, 30);
+        jTextFieldNome.setBounds(300, 220, 190, 30);
 
         jTextFieldMail.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
         getContentPane().add(jTextFieldMail);
-        jTextFieldMail.setBounds(260, 280, 190, 30);
+        jTextFieldMail.setBounds(300, 280, 190, 30);
 
         jLabelButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"))); // NOI18N
         jLabelButtonHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,29 +125,29 @@ public class CriarMorador extends javax.swing.JFrame {
         getContentPane().add(jLabelCriar);
         jLabelCriar.setBounds(290, 460, 85, 40);
 
-        jLabelDataSaida.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabelDataSaida.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelDataSaida.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDataSaida.setText("Data de Saída");
         getContentPane().add(jLabelDataSaida);
-        jLabelDataSaida.setBounds(130, 400, 130, 30);
+        jLabelDataSaida.setBounds(140, 400, 160, 30);
 
-        jLabelDataEntrada.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabelDataEntrada.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelDataEntrada.setForeground(new java.awt.Color(255, 255, 255));
         jLabelDataEntrada.setText("Data de Entrada");
         getContentPane().add(jLabelDataEntrada);
-        jLabelDataEntrada.setBounds(120, 340, 140, 30);
+        jLabelDataEntrada.setBounds(120, 340, 180, 30);
 
-        jLabelMail.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabelMail.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelMail.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMail.setText("E-mail");
         getContentPane().add(jLabelMail);
-        jLabelMail.setBounds(190, 280, 70, 30);
+        jLabelMail.setBounds(220, 280, 80, 30);
 
-        jLabelNome.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabelNome.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelNome.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelNome.setText("Nome ");
+        jLabelNome.setText("Username");
         getContentPane().add(jLabelNome);
-        jLabelNome.setBounds(190, 220, 70, 30);
+        jLabelNome.setBounds(180, 220, 120, 30);
 
         jLabelREgist.setFont(new java.awt.Font("Cooper Black", 0, 30)); // NOI18N
         jLabelREgist.setForeground(new java.awt.Color(255, 255, 255));
@@ -180,14 +186,17 @@ public class CriarMorador extends javax.swing.JFrame {
 
     private void jLabelCriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelCriarMouseClicked
         close();
-        Morador s = null;
+        Escolhe_Morador s = null;
+        Morador m;
+        m = new Morador(this.jTextFieldNome.getText(), this.jTextFieldMail.getText(), (Date) this.jSpinnerEntrada.getValue(), (Date) this.jSpinnerSaida.getValue(), 0);
+        apartamento.adicionarMorador(m);
         try {
-            s = new Morador();
+            s = new Escolhe_Morador(apartamento);
         } catch (SQLException ex) {
             Logger.getLogger(CriarMorador.class.getName()).log(Level.SEVERE, null, ex);
         }
-        s.add(this.jTextFieldNome.getText());
         jTextFieldNome.setText("");
+        jTextFieldMail.setText("");
         s.setVisible(true);
     }//GEN-LAST:event_jLabelCriarMouseClicked
 
@@ -213,43 +222,14 @@ public class CriarMorador extends javax.swing.JFrame {
 
     private void jLabelButtonHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonHomeMouseClicked
         close();
-        Morador s = null;
+        Escolhe_Morador s = null;
         try {
-            s = new Morador();
+            s = new Escolhe_Morador(apartamento);
         } catch (SQLException ex) {
             Logger.getLogger(CriarMorador.class.getName()).log(Level.SEVERE, null, ex);
         }
         s.setVisible(true);
     }//GEN-LAST:event_jLabelButtonHomeMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriarMorador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new CriarMorador().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabelBackGRound;
