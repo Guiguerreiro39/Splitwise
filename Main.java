@@ -7,10 +7,9 @@ package MultiBills;
 
 import Frame.Escolhe_Morador;
 import Java.Apartamento;
+import Java.Despesa;
 import Java.Morador;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  *

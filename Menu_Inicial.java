@@ -20,13 +20,15 @@ import javax.swing.ImageIcon;
 public class Menu_Inicial extends javax.swing.JFrame {
     
     private Apartamento apartamento;
+    private String username;
 
     /**
      * Creates new form Menu_Inicial
      */
-    public Menu_Inicial(Apartamento a) {
+    public Menu_Inicial(Apartamento a, String username) {
         initComponents();
         this.apartamento = a;
+        this.username = username;
     }
     
     public void close() {
@@ -79,6 +81,9 @@ public class Menu_Inicial extends javax.swing.JFrame {
         jLabelApartamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonApartamento.png"))); // NOI18N
         jLabelApartamento.setText("jLabel2");
         jLabelApartamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelApartamentoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelApartamentoMouseEntered(evt);
             }
@@ -245,15 +250,21 @@ public class Menu_Inicial extends javax.swing.JFrame {
 
     private void jLabelDespesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelDespesasMouseClicked
         close();
-        Despesas s = new Despesas(apartamento);
+        Despesas s = new Despesas(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelDespesasMouseClicked
 
     private void jLabelPerfilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPerfilMouseClicked
         close();
-        Perfil s = new Perfil(apartamento);
+        Perfil s = new Perfil(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelPerfilMouseClicked
+
+    private void jLabelApartamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelApartamentoMouseClicked
+        close();
+        Frame.Apartamento s = new Frame.Apartamento(apartamento, username);
+        s.setVisible(true);
+    }//GEN-LAST:event_jLabelApartamentoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

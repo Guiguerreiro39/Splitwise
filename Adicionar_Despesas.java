@@ -6,9 +6,14 @@
 package Frame;
 
 import Java.Apartamento;
+import Java.Despesa;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.SpinnerListModel;
 
 /**
  *
@@ -17,12 +22,26 @@ import javax.swing.ImageIcon;
 public class Adicionar_Despesas extends javax.swing.JFrame {
 
     private Apartamento apartamento;
+    private String username;
     /**
      * Creates new form Adicionar_Despesas
      */
-    public Adicionar_Despesas(Apartamento a) {
+    public Adicionar_Despesas(Apartamento a, String username) {
         initComponents();
         this.apartamento = a;
+        this.username = username;
+        setSpinners();
+    }
+    
+    private void setSpinners() {
+        SpinnerListModel tl;
+        List<String> l = new ArrayList<>();
+        List<String> t = new ArrayList<>();
+        t.add("Recorrente");
+        t.add("Extraordinária");
+        
+        tl = new SpinnerListModel(t);
+        jSpinnerTipo.setModel(tl);
     }
     
     public void close() {
@@ -40,15 +59,15 @@ public class Adicionar_Despesas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jSpinner2 = new javax.swing.JSpinner();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinnerDataLimite = new javax.swing.JSpinner();
+        jCheckBoxBanco = new javax.swing.JCheckBox();
+        jCheckBoxDinheiro = new javax.swing.JCheckBox();
+        jCheckBoxTrans = new javax.swing.JCheckBox();
+        jSpinnerTipo = new javax.swing.JSpinner();
+        jSpinnerLimite = new javax.swing.JSpinner();
         jTextFieldQuantia = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextFieldCategoria = new javax.swing.JTextField();
+        jTextFieldReferencia = new javax.swing.JTextField();
+        jLabelAdicionar = new javax.swing.JLabel();
         jLabelButtonHome = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -63,41 +82,59 @@ public class Adicionar_Despesas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jCheckBox1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("MultiBanco");
-        getContentPane().add(jCheckBox1);
-        jCheckBox1.setBounds(540, 230, 111, 29);
+        jCheckBoxBanco.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jCheckBoxBanco.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxBanco.setText("MultiBanco");
+        getContentPane().add(jCheckBoxBanco);
+        jCheckBoxBanco.setBounds(540, 230, 111, 29);
 
-        jCheckBox2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jCheckBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox2.setText("Dinheiro");
-        getContentPane().add(jCheckBox2);
-        jCheckBox2.setBounds(540, 270, 110, 29);
+        jCheckBoxDinheiro.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jCheckBoxDinheiro.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxDinheiro.setText("Dinheiro");
+        getContentPane().add(jCheckBoxDinheiro);
+        jCheckBoxDinheiro.setBounds(540, 270, 110, 29);
 
-        jCheckBox3.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        jCheckBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox3.setText("Tranferência");
-        getContentPane().add(jCheckBox3);
-        jCheckBox3.setBounds(540, 310, 110, 30);
-        getContentPane().add(jSpinner2);
-        jSpinner2.setBounds(190, 290, 150, 30);
-        getContentPane().add(jSpinner1);
-        jSpinner1.setBounds(190, 230, 150, 30);
+        jCheckBoxTrans.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        jCheckBoxTrans.setForeground(new java.awt.Color(255, 255, 255));
+        jCheckBoxTrans.setText("Tranferência");
+        getContentPane().add(jCheckBoxTrans);
+        jCheckBoxTrans.setBounds(540, 310, 110, 30);
 
-        jSpinnerDataLimite.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
-        jSpinnerDataLimite.setModel(new javax.swing.SpinnerDateModel());
-        getContentPane().add(jSpinnerDataLimite);
-        jSpinnerDataLimite.setBounds(190, 410, 150, 30);
+        jSpinnerTipo.setModel(new javax.swing.SpinnerListModel(new String[] {""}));
+        getContentPane().add(jSpinnerTipo);
+        jSpinnerTipo.setBounds(190, 230, 150, 30);
+
+        jSpinnerLimite.setFont(new java.awt.Font("Arial Black", 0, 13)); // NOI18N
+        jSpinnerLimite.setModel(new javax.swing.SpinnerDateModel());
+        getContentPane().add(jSpinnerLimite);
+        jSpinnerLimite.setBounds(190, 410, 150, 30);
         getContentPane().add(jTextFieldQuantia);
         jTextFieldQuantia.setBounds(190, 350, 150, 30);
+        getContentPane().add(jTextFieldCategoria);
+        jTextFieldCategoria.setBounds(190, 290, 150, 30);
+        getContentPane().add(jTextFieldReferencia);
+        jTextFieldReferencia.setBounds(500, 430, 200, 30);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(490, 410, 220, 120);
+        jLabelAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonAdicionar2.png"))); // NOI18N
+        jLabelAdicionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAdicionarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabelAdicionarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabelAdicionarMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabelAdicionarMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jLabelAdicionarMouseReleased(evt);
+            }
+        });
+        getContentPane().add(jLabelAdicionar);
+        jLabelAdicionar.setBounds(220, 480, 110, 40);
 
         jLabelButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"))); // NOI18N
         jLabelButtonHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,29 +236,70 @@ public class Adicionar_Despesas extends javax.swing.JFrame {
 
     private void jLabelButtonHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonHomeMouseClicked
         close();
-        Menu_Inicial s = new Menu_Inicial(apartamento);
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelButtonHomeMouseClicked
 
+    private void jLabelAdicionarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdicionarMouseEntered
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonAdicionar2_over.png"));
+        jLabelAdicionar.setIcon(II);
+    }//GEN-LAST:event_jLabelAdicionarMouseEntered
+
+    private void jLabelAdicionarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdicionarMouseExited
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonAdicionar2.png"));
+        jLabelAdicionar.setIcon(II);
+    }//GEN-LAST:event_jLabelAdicionarMouseExited
+
+    private void jLabelAdicionarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdicionarMousePressed
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonAdicionar2_pressed.png"));
+        jLabelAdicionar.setIcon(II);
+    }//GEN-LAST:event_jLabelAdicionarMousePressed
+
+    private void jLabelAdicionarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdicionarMouseReleased
+        ImageIcon II = new ImageIcon(getClass().getResource("/Imagens/ButtonAdicionar2_over.png"));
+        jLabelAdicionar.setIcon(II);
+    }//GEN-LAST:event_jLabelAdicionarMouseReleased
+
+    private void jLabelAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdicionarMouseClicked
+        String t = (String) jSpinnerTipo.getValue();
+        String categoria = (String) jTextFieldCategoria.getText();
+        float custo = Float.parseFloat(jTextFieldQuantia.getText());
+        Date data_limite = (Date) jSpinnerLimite.getValue();
+        int referencia = -1;
+        int id_despesa = apartamento.getListaTotal().size();
+        
+        boolean tipo;
+        tipo = t.equals("Recorrente");
+        
+        if(!jCheckBoxDinheiro.isSelected()){
+            referencia = Integer.parseInt(jTextFieldReferencia.getText());
+        }
+        Despesa d = new Despesa(custo, data_limite, tipo, categoria, false, referencia, id_despesa);
+        apartamento.adicionarDespesa(d);
+        close();
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
+        s.setVisible(true);
+    }//GEN-LAST:event_jLabelAdicionarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBoxBanco;
+    private javax.swing.JCheckBox jCheckBoxDinheiro;
+    private javax.swing.JCheckBox jCheckBoxTrans;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelAdd;
+    private javax.swing.JLabel jLabelAdicionar;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelButtonHome;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelDataLimite;
     private javax.swing.JLabel jLabelQuantia;
     private javax.swing.JLabel jLabelTipo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinnerDataLimite;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JSpinner jSpinnerLimite;
+    private javax.swing.JSpinner jSpinnerTipo;
+    private javax.swing.JTextField jTextFieldCategoria;
     private javax.swing.JTextField jTextFieldQuantia;
+    private javax.swing.JTextField jTextFieldReferencia;
     // End of variables declaration//GEN-END:variables
 }

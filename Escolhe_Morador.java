@@ -215,8 +215,9 @@ public class Escolhe_Morador extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelButtonEntrarMouseReleased
 
     private void jLabelButtonEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonEntrarMouseClicked
+        String username = jListMorador.getSelectedValue();
         close();
-        Menu_Inicial s = new Menu_Inicial(apartamento);
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelButtonEntrarMouseClicked
 

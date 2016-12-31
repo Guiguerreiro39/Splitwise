@@ -9,6 +9,9 @@ import Java.Apartamento;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
@@ -19,17 +22,35 @@ import javax.swing.JFileChooser;
 public class Perfil extends javax.swing.JFrame {
 
     private Apartamento apartamento;
+    private String username;
     /**
      * Creates new form Perfil
      */
-    public Perfil(Apartamento a) {
+    public Perfil(Apartamento a, String username) {
         initComponents();
         this.apartamento = a;
+        this.username = username;
+        AddCont();
     }
     
     public void close() {
         WindowEvent winClosingEvent =  new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+    }
+    
+    public void AddCont() {
+        String mail = apartamento.getListaMoradores().get(username).getEmail();
+        Date entrada = apartamento.getListaMoradores().get(username).getEntrada();
+        Date saida = apartamento.getListaMoradores().get(username).getSaida();
+        Float conta = apartamento.getListaMoradores().get(username).getConta();
+        
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        
+        jLabelNome2.setText(this.username);
+        jLabelMail2.setText(mail);
+        jLabelEntrada2.setText(df.format(entrada));
+        jLabelSaida2.setText(df.format(saida));
+        jLabelPagar2.setText(Float.toString(conta) + " €");
     }
 
     /**
@@ -42,6 +63,11 @@ public class Perfil extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextFieldPath = new javax.swing.JTextField();
+        jLabelPagar2 = new javax.swing.JLabel();
+        jLabelMail2 = new javax.swing.JLabel();
+        jLabelSaida2 = new javax.swing.JLabel();
+        jLabelEntrada2 = new javax.swing.JLabel();
+        jLabelNome2 = new javax.swing.JLabel();
         jLabelHome = new javax.swing.JLabel();
         jLabelShopIcon = new javax.swing.JLabel();
         jLabelPagar1 = new javax.swing.JLabel();
@@ -58,6 +84,31 @@ public class Perfil extends javax.swing.JFrame {
         getContentPane().setLayout(null);
         getContentPane().add(jTextFieldPath);
         jTextFieldPath.setBounds(40, 450, 210, 40);
+
+        jLabelPagar2.setFont(new java.awt.Font("Arial Black", 0, 20)); // NOI18N
+        jLabelPagar2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabelPagar2);
+        jLabelPagar2.setBounds(630, 190, 120, 30);
+
+        jLabelMail2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabelMail2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabelMail2);
+        jLabelMail2.setBounds(410, 380, 330, 30);
+
+        jLabelSaida2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabelSaida2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabelSaida2);
+        jLabelSaida2.setBounds(490, 340, 260, 30);
+
+        jLabelEntrada2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabelEntrada2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabelEntrada2);
+        jLabelEntrada2.setBounds(510, 300, 230, 30);
+
+        jLabelNome2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabelNome2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabelNome2);
+        jLabelNome2.setBounds(410, 260, 300, 30);
 
         jLabelHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"))); // NOI18N
         jLabelHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,31 +133,31 @@ public class Perfil extends javax.swing.JFrame {
 
         jLabelShopIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/shopping-cart.png"))); // NOI18N
         getContentPane().add(jLabelShopIcon);
-        jLabelShopIcon.setBounds(490, 140, 70, 70);
+        jLabelShopIcon.setBounds(490, 120, 70, 70);
 
         jLabelPagar1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabelPagar1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelPagar1.setText("Por pagar:");
         getContentPane().add(jLabelPagar1);
-        jLabelPagar1.setBounds(570, 140, 150, 70);
+        jLabelPagar1.setBounds(570, 120, 150, 70);
 
         jLabelMail1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelMail1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelMail1.setText("E-mail:");
         getContentPane().add(jLabelMail1);
-        jLabelMail1.setBounds(330, 380, 80, 26);
+        jLabelMail1.setBounds(330, 380, 70, 30);
 
         jLabelSaida1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelSaida1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSaida1.setText("Data de Saída:");
         getContentPane().add(jLabelSaida1);
-        jLabelSaida1.setBounds(330, 340, 160, 26);
+        jLabelSaida1.setBounds(330, 340, 150, 30);
 
         jLabelEntrada1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelEntrada1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelEntrada1.setText("Data de entrada:");
         getContentPane().add(jLabelEntrada1);
-        jLabelEntrada1.setBounds(330, 300, 170, 26);
+        jLabelEntrada1.setBounds(330, 300, 170, 30);
 
         jLabelNome1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabelNome1.setForeground(new java.awt.Color(255, 255, 255));
@@ -207,7 +258,7 @@ public class Perfil extends javax.swing.JFrame {
 
     private void jLabelHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseClicked
         close();
-        Menu_Inicial s = new Menu_Inicial(apartamento);
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelHomeMouseClicked
 
@@ -215,13 +266,18 @@ public class Perfil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelAbrir;
     private javax.swing.JLabel jLabelBackground;
     private javax.swing.JLabel jLabelEntrada1;
+    private javax.swing.JLabel jLabelEntrada2;
     private javax.swing.JLabel jLabelHome;
     private javax.swing.JLabel jLabelImagem;
     private javax.swing.JLabel jLabelMail1;
+    private javax.swing.JLabel jLabelMail2;
     private javax.swing.JLabel jLabelNome1;
+    private javax.swing.JLabel jLabelNome2;
     private javax.swing.JLabel jLabelPagar1;
+    private javax.swing.JLabel jLabelPagar2;
     private javax.swing.JLabel jLabelPerfil;
     private javax.swing.JLabel jLabelSaida1;
+    private javax.swing.JLabel jLabelSaida2;
     private javax.swing.JLabel jLabelShopIcon;
     private javax.swing.JTextField jTextFieldPath;
     // End of variables declaration//GEN-END:variables

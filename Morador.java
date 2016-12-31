@@ -5,10 +5,9 @@
  */
 package Java;
 
+import DAO.DAO_listaEx;
+import DAO.DAO_listaRec;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  *
@@ -20,8 +19,8 @@ public class Morador {
     private Date entrada;
     private Date saida;
     private float conta;
-    private Map<Integer, Despesa> listaRec;
-    private Map<Integer,Despesa> listaExtra;
+    private DAO_listaRec listaRec;
+    private DAO_listaEx listaExtra;
     
     public Morador() {
         this.username = "";
@@ -29,8 +28,8 @@ public class Morador {
         this.entrada = new Date();
         this.saida = new Date();
         this.conta = (float) 0.0;
-        this.listaRec = new HashMap<>();
-        this.listaExtra = new HashMap<>();
+        this.listaRec = new DAO_listaRec();
+        this.listaExtra = new DAO_listaEx();
     }
     
     public Morador(String username, String email, Date entrada, Date saida, float conta) {
@@ -40,8 +39,8 @@ public class Morador {
         this.entrada = entrada;
         this.saida = saida;
         this.conta = conta;
-        this.listaRec = null;
-        this.listaExtra = null;
+        this.listaRec = new DAO_listaRec();
+        this.listaExtra = new DAO_listaEx();
     }
     
     public Morador(Morador m) {
@@ -59,8 +58,8 @@ public class Morador {
     public Date getEntrada(){return this.entrada;}
     public Date getSaida(){return this.saida;}
     public float getConta(){return this.conta;}
-    public Map<Integer, Despesa> getListaRec() {return listaRec;}
-    public Map<Integer,Despesa> getListaExtra() {return listaExtra;}
+    public DAO_listaRec getListaRec() {return listaRec;}
+    public DAO_listaEx getListaExtra() {return listaExtra;}
 
     @Override
     public String toString() {
@@ -88,36 +87,36 @@ public class Morador {
         this.conta = conta;
     }
 
-    public void setListaRec(Map<Integer, Despesa> listaDespesas) {
+    public void setListaRec(DAO_listaRec listaDespesas) {
         this.listaRec = listaDespesas;
     }
 
-    public void setListaExtra(Map<Integer, Despesa> listaDespesas) {
+    public void setListaExtra(DAO_listaEx listaDespesas) {
         this.listaExtra = listaDespesas;
     }
 
     public void adicionaDespesa (Despesa a) {
-      if (a.isTipo() == true) listaRec.put(a.getReferencia(), a);
-      else listaExtra.put(a.getReferencia(), a);
+      if (a.isTipo()) listaRec.put(a.getId_despesa(), a);
+      else listaExtra.put(a.getId_despesa(), a);
       this.conta += a.getValor();
       }
     
     public void removeDespesa (Despesa a) {
-      if (a.isTipo() == true) listaRec.remove(a.getReferencia(), a);
-      else listaExtra.remove(a.getReferencia(), a);
+      if (a.isTipo()) listaRec.remove(a.getId_despesa(), a);
+      else listaExtra.remove(a.getId_despesa(), a);
       this.conta -= a.getValor();
       }  
       
-    public void efetuapagamento(int referencia, boolean tipo, float quantia) throws QuantiaInvalidaException{
-    if (tipo == true) {
-        if (quantia != listaRec.get(referencia).getValor()) throw new QuantiaInvalidaException("Quantia inválida!");
-        listaRec.remove(referencia, listaRec.get(referencia));
-        listaRec.get(referencia).setPago(true);
+    public void efetuapagamento(int id_despesa, boolean tipo, float quantia) throws QuantiaInvalidaException{
+    if (tipo) {
+        if (quantia != listaRec.get(id_despesa).getValor()) throw new QuantiaInvalidaException("Quantia inválida!");
+        listaRec.remove(id_despesa, listaRec.get(id_despesa));
+        listaRec.get(id_despesa).setPago(true);
     }
     else {
-        if (quantia != listaExtra.get(referencia).getValor()) throw new QuantiaInvalidaException("Quantia inválida!");
-        listaExtra.remove(referencia, listaRec.get(referencia));
-        listaExtra.get(referencia).setPago(true);
+        if (quantia != listaExtra.get(id_despesa).getValor()) throw new QuantiaInvalidaException("Quantia inválida!");
+        listaExtra.remove(id_despesa, listaRec.get(id_despesa));
+        listaExtra.get(id_despesa).setPago(true);
     }
     this.conta -=quantia;
     }

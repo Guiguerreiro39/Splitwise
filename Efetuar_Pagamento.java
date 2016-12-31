@@ -6,12 +6,18 @@
 package Frame;
 
 import Java.Apartamento;
+import Java.Despesa;
+import Java.Morador;
+import Java.QuantiaInvalidaException;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.SpinnerListModel;
 
 /**
  *
@@ -20,12 +26,37 @@ import javax.swing.ImageIcon;
 public class Efetuar_Pagamento extends javax.swing.JFrame {
 
     private Apartamento apartamento;
+    private String username;
     /**
      * Creates new form Efetuar_Pagamento
      */
-    public Efetuar_Pagamento(Apartamento a) {
+    public Efetuar_Pagamento(Apartamento a, String username) {
         initComponents();
         this.apartamento = a;
+        this.username = username;
+        setSpinnersTipo();
+        setSpinnersCategoria();
+    }
+    
+    private void setSpinnersTipo() {
+        SpinnerListModel tl;
+        List<String> l = new ArrayList<>();
+        List<String> t = new ArrayList<>();
+        t.add("Recorrente");
+        t.add("Extraordinária");
+        
+        tl = new SpinnerListModel(t);
+        jSpinnerTipo.setModel(tl);
+    }
+    
+    private void setSpinnersCategoria() {
+        SpinnerListModel pl;
+        List<String> l = new ArrayList<>();
+        for(Despesa d : apartamento.getListaTotal().values()){
+            l.add(d.getCategoria());
+        }
+        pl = new SpinnerListModel(l);
+        jSpinnerCategoria.setModel(pl);
     }
     
     public void close() {
@@ -42,10 +73,10 @@ public class Efetuar_Pagamento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSpinnerPagamento = new javax.swing.JSpinner();
         jSpinnerTipo = new javax.swing.JSpinner();
         jSpinnerCategoria = new javax.swing.JSpinner();
         jTextFieldNum = new javax.swing.JTextField();
+        jTextFieldPaga = new javax.swing.JTextField();
         jLabelButtonHome = new javax.swing.JLabel();
         jLabelShop = new javax.swing.JLabel();
         jLabelCatagoria = new javax.swing.JLabel();
@@ -57,14 +88,14 @@ public class Efetuar_Pagamento extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
-        getContentPane().add(jSpinnerPagamento);
-        jSpinnerPagamento.setBounds(400, 220, 160, 30);
         getContentPane().add(jSpinnerTipo);
         jSpinnerTipo.setBounds(400, 340, 160, 30);
         getContentPane().add(jSpinnerCategoria);
         jSpinnerCategoria.setBounds(400, 400, 160, 30);
         getContentPane().add(jTextFieldNum);
         jTextFieldNum.setBounds(400, 280, 160, 30);
+        getContentPane().add(jTextFieldPaga);
+        jTextFieldPaga.setBounds(400, 220, 160, 30);
 
         jLabelButtonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"))); // NOI18N
         jLabelButtonHome.setText("jLabel2");
@@ -91,6 +122,9 @@ public class Efetuar_Pagamento extends javax.swing.JFrame {
         jLabelShop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonShop.png"))); // NOI18N
         jLabelShop.setText("jLabel2");
         jLabelShop.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelShopMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabelShopMouseEntered(evt);
             }
@@ -188,9 +222,24 @@ public class Efetuar_Pagamento extends javax.swing.JFrame {
 
     private void jLabelButtonHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelButtonHomeMouseClicked
         close();
-        Menu_Inicial s = new Menu_Inicial(apartamento);
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelButtonHomeMouseClicked
+
+    private void jLabelShopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelShopMouseClicked
+        Morador m = apartamento.getListaMoradores().get(username);
+        boolean tipo = false;
+        if(jSpinnerTipo.getValue().equals("Recorrente")) tipo = true;
+        try {
+            m.efetuapagamento(Integer.parseInt(jTextFieldNum.getText()), tipo, Float.parseFloat(jTextFieldPaga.getText()));
+            apartamento.ListaMoradores.put(m.getUsername(), m);
+        } catch (QuantiaInvalidaException ex) {
+            Logger.getLogger(Efetuar_Pagamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        close();
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
+        s.setVisible(true);
+    }//GEN-LAST:event_jLabelShopMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -203,8 +252,8 @@ public class Efetuar_Pagamento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelShop;
     private javax.swing.JLabel jLabelTipo;
     private javax.swing.JSpinner jSpinnerCategoria;
-    private javax.swing.JSpinner jSpinnerPagamento;
     private javax.swing.JSpinner jSpinnerTipo;
     private javax.swing.JTextField jTextFieldNum;
+    private javax.swing.JTextField jTextFieldPaga;
     // End of variables declaration//GEN-END:variables
 }

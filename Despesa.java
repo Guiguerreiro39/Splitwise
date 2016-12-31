@@ -5,37 +5,40 @@
  */
 package Java;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.Objects;
 
 /**
  *
  * @author Houdini
  */
-class Despesa {
+public class Despesa {
     private float valor;
-    private GregorianCalendar limite;
+    private Date limite;
     private boolean tipo;
     private String categoria;
     private boolean pago;
     private int referencia;
+    private int id_despesa;
 
-    public Despesa(float valor, GregorianCalendar limite, boolean tipo, String categoria, boolean pago, int referencia) {
+    public Despesa(float valor, Date limite, boolean tipo, String categoria, boolean pago, int referencia, int id_despesa) {
         this.valor = valor;
         this.limite = limite;
         this.tipo = tipo;
         this.categoria = categoria;
         this.pago = pago;
         this.referencia = referencia;
+        this.id_despesa = id_despesa;
     }
     
     public Despesa(){
         this.valor = (float) 0.0;
-        this.limite = new GregorianCalendar();
+        this.limite = new Date();
         this.tipo = false;
         this.categoria = "";
         this.pago = false;
         this.referencia = 0;
+        this.id_despesa = 0;
     }
     public Despesa(Despesa d){
         this.valor = d.getValor();
@@ -44,6 +47,7 @@ class Despesa {
         this.categoria = d.getCategoria();
         this.pago = d.isPago();
         this.referencia = d.getReferencia();
+        this.id_despesa = id_despesa;
     }
     
     public float getValor() {
@@ -54,11 +58,11 @@ class Despesa {
         this.valor = valor;
     }
 
-    public GregorianCalendar getLimite() {
+    public Date getLimite() {
         return limite;
     }
 
-    public void setLimite(GregorianCalendar limite) {
+    public void setLimite(Date limite) {
         this.limite = limite;
     }
 
@@ -92,6 +96,14 @@ class Despesa {
     
     public void setReferencia(int referencia) {
         this.referencia = referencia;
+    }
+
+    public int getId_despesa() {
+        return id_despesa;
+    }
+
+    public void setId_despesa(int id_despesa) {
+        this.id_despesa = id_despesa;
     }
             
     @Override

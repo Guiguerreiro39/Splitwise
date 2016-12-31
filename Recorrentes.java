@@ -6,9 +6,19 @@
 package Frame;
 
 import Java.Apartamento;
+import Java.Despesa;
+import Java.Morador;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,12 +27,51 @@ import javax.swing.ImageIcon;
 public class Recorrentes extends javax.swing.JFrame {
 
     private Apartamento apartamento;
+    private String username;
+    private String[] meses = {"Janeiro",      
+                            "Fevereiro",
+                            "Março",        
+                            "Abril",        
+                            "Maio",          
+                            "Junho",         
+                            "Julho",         
+                            "Agosto",       
+                            "Setembro",    
+                            "Outubro",      
+                            "Novembro",     
+                            "Dezembro"};
     /**
      * Creates new form Recorrentes
      */
-    public Recorrentes(Apartamento a) {
+    public Recorrentes(Apartamento a, String username) {
         initComponents();
         this.apartamento = a;
+        this.username = username;
+        TableAdd();
+    }
+    
+    public void TableAdd() {
+        DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+        
+        Date date= new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH);
+        String mes = meses[month];
+        
+        String pago;
+        
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        String limite;
+        for(Morador m : apartamento.getListaMoradores().values()){
+            for(Despesa d : m.getListaRec().values()){
+                    if(d.isPago()) pago = "Pago";
+                    else pago = "Não Pago";
+                    limite = df.format(d.getLimite());
+                    Object[] row = {d.getId_despesa(), "Recorrente", mes, d.getValor(), limite, pago, d.getReferencia()};
+                    model.addRow(row);
+            }
+        }
     }
     
     public void close() {
@@ -50,20 +99,14 @@ public class Recorrentes extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "nº", "Tipo", "Mês", "Quantia", "Data limite", "Estado", "Dados"
+                "nº", "Tipo", "Mês", "Quantia", "Data limite", "Estado", "Referência"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,7 +116,7 @@ public class Recorrentes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(130, 260, 550, 140);
+        jScrollPane1.setBounds(40, 220, 720, 200);
 
         jLabelHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/ButtonHome.png"))); // NOI18N
         jLabelHome.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,7 +176,7 @@ public class Recorrentes extends javax.swing.JFrame {
 
     private void jLabelHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseClicked
         close();
-        Menu_Inicial s = new Menu_Inicial(apartamento);
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelHomeMouseClicked
 

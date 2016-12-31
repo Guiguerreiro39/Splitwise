@@ -5,6 +5,7 @@
  */
 package Java;
 
+import DAO.DAO_despesa;
 import DAO.DAO_morador;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,18 +16,18 @@ import java.util.Objects;
  */
 public class Apartamento {
     private float renda;
-    private ArrayList<Despesa> ListaTotal;
-    private DAO_morador ListaMoradores;
+    private DAO_despesa ListaTotal;
+    public DAO_morador ListaMoradores;
 
-    public Apartamento(float renda, ArrayList<Despesa> ListaTotal) {
+    public Apartamento(float renda, ArrayList<Despesa> ListaTotal, int id_despesa) {
         this.renda = renda;
-        this.ListaTotal = ListaTotal;
+        this.ListaTotal = new DAO_despesa();
         this.ListaMoradores = new DAO_morador();
     }
     
     public Apartamento() {
         this.renda = (float) 0.0;
-        this.ListaTotal = new ArrayList<>();
+        this.ListaTotal = new DAO_despesa();
         this.ListaMoradores = new DAO_morador();
     }
     
@@ -40,7 +41,7 @@ public class Apartamento {
         return renda;
     }
 
-    public ArrayList<Despesa> getListaTotal() {
+    public DAO_despesa getListaTotal() {
         return ListaTotal;
     }
 
@@ -51,8 +52,8 @@ public class Apartamento {
     public void setRenda(float renda) {
         this.renda = renda;
     }
-
-    public void setListaTotal(ArrayList<Despesa> ListaTotal) {
+    
+    public void setListaTotal(DAO_despesa ListaTotal) {
         this.ListaTotal = ListaTotal;
     }
 
@@ -68,6 +69,9 @@ public class Apartamento {
     @Override
     public int hashCode() {
         int hash = 5;
+        hash = 53 * hash + Float.floatToIntBits(this.renda);
+        hash = 53 * hash + Objects.hashCode(this.ListaTotal);
+        hash = 53 * hash + Objects.hashCode(this.ListaMoradores);
         return hash;
     }
 
@@ -95,6 +99,8 @@ public class Apartamento {
         return true;
     }
 
+
+
     public void removerMorador(String username) {
         for(Morador o: ListaMoradores.values()){
             if(o.getUsername().equals(username))
@@ -109,7 +115,7 @@ public class Apartamento {
     
     public void removerDespesa(Despesa d) {
         int i = 0;
-        for(Despesa o: ListaTotal) {
+        for(Despesa o: ListaTotal.values()) {
             if(o.getReferencia() == d.getReferencia()){
                 ListaTotal.remove(i);
                 for(Morador m: ListaMoradores.values()){
@@ -123,10 +129,11 @@ public class Apartamento {
     public void adicionarDespesa(Despesa d) {
         int i = ListaTotal.size();
         int j = ListaMoradores.size();
-        ListaTotal.add(i, d);
-        Despesa dp = new Despesa((d.getValor())/j, d.getLimite(), d.isTipo(), d.getCategoria(), d.isPago(), d.getReferencia());
+        ListaTotal.put(i, d);
+        Despesa dp = new Despesa((d.getValor()/j), d.getLimite(), d.isTipo(), d.getCategoria(), d.isPago(), d.getReferencia(), d.getId_despesa());
         for(Morador m: ListaMoradores.values()){
             m.adicionaDespesa(dp);
+            ListaMoradores.put(m.getUsername(), m);
         }
     }
     

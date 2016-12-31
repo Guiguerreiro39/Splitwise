@@ -17,12 +17,14 @@ import javax.swing.ImageIcon;
 public class Despesas extends javax.swing.JFrame {
 
     private Apartamento apartamento;
+    private String username;
     /**
      * Creates new form Despesas
      */
-    public Despesas(Apartamento a) {
+    public Despesas(Apartamento a, String username) {
         initComponents();
         this.apartamento = a;
+        this.username = username;
     }
     
     public void close() {
@@ -236,7 +238,7 @@ public class Despesas extends javax.swing.JFrame {
 
     private void jLabelPagamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelPagamentoMouseClicked
         close();
-        Efetuar_Pagamento s = new Efetuar_Pagamento(apartamento);
+        Efetuar_Pagamento s = new Efetuar_Pagamento(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelPagamentoMouseClicked
 
@@ -262,19 +264,19 @@ public class Despesas extends javax.swing.JFrame {
 
     private void jLabelRecorrentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelRecorrentesMouseClicked
         close();
-        Recorrentes s = new Recorrentes(apartamento);
+        Recorrentes s = new Recorrentes(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelRecorrentesMouseClicked
 
     private void jLabelExtraordinariasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelExtraordinariasMouseClicked
         close();
-        Extraordinarias s = new Extraordinarias(apartamento);
+        Extraordinarias s = new Extraordinarias(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelExtraordinariasMouseClicked
 
     private void jLabelAdicionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAdicionarMouseClicked
         close();
-        Adicionar_Despesas s = new Adicionar_Despesas(apartamento);
+        Adicionar_Despesas s = new Adicionar_Despesas(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelAdicionarMouseClicked
 
@@ -300,7 +302,7 @@ public class Despesas extends javax.swing.JFrame {
 
     private void jLabelHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelHomeMouseClicked
         close();
-        Menu_Inicial s = new Menu_Inicial(apartamento);
+        Menu_Inicial s = new Menu_Inicial(apartamento, username);
         s.setVisible(true);
     }//GEN-LAST:event_jLabelHomeMouseClicked
 
