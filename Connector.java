@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class Connector {
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Master22Piece";
+    private static final String PASSWORD = "root";
     private static final String CONN_STRING = "jdbc:mysql://localhost:3306/dividas?useSSL=false";
     
     public static Connection connectDB() {
